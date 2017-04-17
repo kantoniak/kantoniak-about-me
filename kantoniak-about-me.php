@@ -18,12 +18,25 @@ class AboutMe {
 
   const OPTION_SOCIAL_URLS = AboutMe::PLUGIN_SLUG .'-social_urls';
 
+  private $socialMediaSites = [];
+
   public function __construct() {
+
+    $this->registerSocialMediaSite('facebook', 'Facebook', 'https://www.facebook.com/');
+
     if (is_admin()) {
         add_action('admin_menu', array($this, 'setupAdminMenu'));
     } else {
         add_action('wp_enqueue_scripts', array($this, 'addStylesheet'));
     }
+  }
+
+  private function registerSocialMediaSite($slug, $name, $urlPrefix) {
+    $this->socialMediaSites[] = array(
+      'slug' => $slug,
+      'name' => $name,
+      'url_prefix' => $urlPrefix
+    );
   }
 
   public function setupAdminMenu() {
@@ -37,10 +50,29 @@ class AboutMe {
   public function handleSettingsPage() {
 
     if (isset($_POST['submitted'])) {
+        $socialUrls = $this->getSocialUrlsFromPost();
+        update_option(AboutMe::OPTION_SOCIAL_URLS, json_encode($socialUrls, JSON_UNESCAPED_UNICODE));        
         $settingsUpdated = true;
+    } else {
+      $socialUrls = $this->getSocialUrlsFromDatabase();
     }
 
     include('template-settings.php');
+  }
+
+  private function getSocialUrlsFromPost() {
+    $socialUrls = [];
+    foreach ($this->socialMediaSites as $site) {
+      $fieldValue = $_POST['social_urls-'. $site['slug']];
+      if (!empty(trim($fieldValue))) {
+        $socialUrls[$site['slug']] = $fieldValue;
+      }
+    }
+    return $socialUrls;
+  }
+
+  private function getSocialUrlsFromDatabase() {
+    return json_decode(get_option(AboutMe::OPTION_SOCIAL_URLS, []), true);
   }
 }
 

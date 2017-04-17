@@ -1,3 +1,16 @@
+<?php
+
+function renderSocialMediaRow($site, $socialUrls) {
+  echo '
+      <tr>
+          <th scope="row"><label for="social_urls-'. $site['slug'] .'">'. $site['name'] .'</label></th>
+          <td>
+            <span class="site-prefix">'. $site['url_prefix'] .'</span><input name="social_urls-'. $site['slug'] .'" type="text" value="'. $socialUrls[$site['slug']] .'" />
+          </td>
+      </tr>';
+}
+
+?>
 <div class="wrap kantoniak-about-me-settings-page">
   <h1><?php echo kantoniak\AboutMe::PLUGIN_NAME; ?></h1>
 
@@ -11,12 +24,11 @@
     <div>
       <h2>Social Media</h2>
       <table class="form-table">
-      <!-- <tr>
-          <th scope="row"><label for="social_urls-facebook">Facebook</label></th>
-          <td>
-            <input name="social_urls-facebook" type="text" />
-          </td>
-      </tr> -->
+      <?php
+      foreach ($this->socialMediaSites as $site) {
+        renderSocialMediaRow($site, $socialUrls);
+      }
+      ?>
       </table>
     </div>
     
