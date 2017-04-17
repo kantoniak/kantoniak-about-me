@@ -1,0 +1,14 @@
+.widget_kantoniak-about-me-social .links { display: flex; flex-direction: row; justify-content: space-between; list-style: none; }
+.widget_kantoniak-about-me-social .links li a { display: block;  background: #F5F5F5; background-size: 100%; width: 28px; height: 28px; font-size: 0; }
+.widget_kantoniak-about-me-social .links li a:hover { animation-name:social-hover; animation-duration: 100ms; animation-iteration-count: 1; animation-timing-function: ease-in; animation-fill-mode: forwards; }
+.widget_kantoniak-about-me-social .links li.facebook a { background-image: url(../images/facebook.svg); }
+.widget_kantoniak-about-me-social .links li.twitter a { background-image: url(../images/twitter.svg); }
+.widget_kantoniak-about-me-social .links li.github a { background-image: url(../images/github.svg); }
+.widget_kantoniak-about-me-social .links li.youtube a { background-image: url(../images/youtube.svg); }
+.widget_kantoniak-about-me-social .links li.linkedin a { background-image: url(../images/linkedin.svg); }
+.widget_kantoniak-about-me-social .links li.rss a { background-image: url(../images/rss.svg); }
+
+@keyframes social-hover {
+  0% { transform: rotate(0) scale(1) }
+  100% { transform: rotate(-8deg) scale(1.125) }
+}
