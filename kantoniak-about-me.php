@@ -23,6 +23,11 @@ class AboutMe {
   public function __construct() {
 
     $this->registerSocialMediaSite('facebook', 'Facebook', 'https://www.facebook.com/');
+    $this->registerSocialMediaSite('twitter', 'Twitter', 'https://twitter.com/');
+    $this->registerSocialMediaSite('github', 'GitHub', 'https://github.com/');
+    $this->registerSocialMediaSite('youtube', 'YouTube', 'https://www.youtube.com/');
+    $this->registerSocialMediaSite('linkedin', 'LinkedIn', 'https://www.linkedin.com/in/');
+    $this->registerSocialMediaSite('rss', 'RSS', '');
 
     if (is_admin()) {
         add_action('admin_menu', array($this, 'setupAdminMenu'));
