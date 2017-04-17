@@ -34,14 +34,31 @@ class AboutMe {
     } else {
         add_action('wp_enqueue_scripts', array($this, 'addStylesheet'));
     }
+
+    add_action('widgets_init', function() {
+      register_widget('\kantoniak\AboutMeWidget');
+      
+      // To pass arguments to widget, see https://wordpress.org/ideas/topic/allow-ability-to-pass-parameters-when-registering-widgets
+      global $wp_widget_factory;
+      $widget = $wp_widget_factory->widgets['\kantoniak\AboutMeWidget'];
+      $widget->setPlugin($this);
+    });
   }
 
-  private function registerSocialMediaSite($slug, $name, $urlPrefix) {
-    $this->socialMediaSites[] = array(
+  public function registerSocialMediaSite($slug, $name, $urlPrefix) {
+    $this->socialMediaSites[$slug] = array(
       'slug' => $slug,
       'name' => $name,
       'url_prefix' => $urlPrefix
     );
+  }
+
+  public function getMediaSiteBySlug($slug) {
+    if (isset($this->socialMediaSites[$slug])) {
+      return $this->socialMediaSites[$slug];
+    } else {
+      return null;
+    }
   }
 
   public function setupAdminMenu() {
@@ -76,26 +93,26 @@ class AboutMe {
     return $socialUrls;
   }
 
-  private function getSocialUrlsFromDatabase() {
+  public function getSocialUrlsFromDatabase() {
     return json_decode(get_option(AboutMe::OPTION_SOCIAL_URLS, []), true);
   }
 }
 
 class AboutMeWidget extends \WP_Widget {
 
+    private $plugin;
+
     function __construct() {
- 
         parent::__construct(
             AboutMe::PLUGIN_SLUG .'-social',  // Base ID
             AboutMe::PLUGIN_NAME .' Social'   // Name
         );
  
-        $this->args['before_widget'] = '<div class="widget-wrap '. $this->base_id .'">';
+        $this->args['before_widget'] = '<div class="widget-wrap '. $this->base_id .'">'; 
+    }
 
-        add_action('widgets_init', function() {
-            register_widget('\kantoniak\AboutMeWidget');
-        });
- 
+    public function setPlugin($plugin) {
+      $this->plugin = $plugin;
     }
  
     public $args = array(
