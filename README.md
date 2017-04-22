@@ -1,6 +1,8 @@
 # kantoniak About Me Plugin
 
-Plugin project intended to provide whole range of about widgets, shortcodes etc.
+Plugin project intended to provide whole range of about widgets, shortcodes etc. Currently adds a list of social media buttons. Icons are scalable SVG, they work with any screen size and pixel density.
+
+Currently supported sites: Facebook, Twitter, GitHub, YouTube, LinkedIn, RSS (a link).
 
 <p align="center">
   <img src="assets/screenshot-1.png" align="center" />
@@ -22,4 +24,4 @@ Plugin project intended to provide whole range of about widgets, shortcodes etc.
 
 Copyright © 2017 Krzysztof Antoniak (http://antoniak.in/). Licensed under GNU General Public License, version 3.0 (GPL-3.0).
 
-Original social media icons by [Allan McAvoy](https://allanmcavoy.com/), you can obtain EPS from [Dribble](https://dribbble.com/shots/1094936-Free-Flat-Social-Media-Icon-Set).
+Original social media icons by [Allan McAvoy](https://allanmcavoy.com/), you can obtain EPS from [Dribble](https://dribbble.com/shots/1094936-Free-Flat-Social-Media-Icon-Set). Allan agreed to publish icons under GPL-3.0.
